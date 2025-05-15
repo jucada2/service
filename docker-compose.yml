@@ -12,28 +12,13 @@ services:
     depends_on:
       - mysql 
     environment:
-      DB_HOST: mysql  
-      DB_PORT: 3306
+      DB_HOST: 172.31.95.13  
+      DB_PORT: 8005
       DB_NAME: user_db
       DB_USER: user
       DB_PASSWORD: userpassword
     networks:
       - backend
-
-  # MySQL
-  mysql:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword 
-      MYSQL_DATABASE: user_db  
-      MYSQL_USER: user 
-      MYSQL_PASSWORD: userpassword  
-    ports:
-      - "3333:3306" 
-    networks:
-      - backend
-    volumes:
-      - ./backend/user_microservice/schema.sql:/docker-entrypoint-initdb.d/schema.sql  
 
   content-service:
     build:
@@ -44,21 +29,9 @@ services:
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/video-db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://172.31.95.13:5432/video-db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgresql
-    networks:
-      - backend
-
-  # Postgres
-  postgres:
-    image: postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgresql
-      POSTGRES_DB: video-db
-    ports:
-      - "5432:5432"
     networks:
       - backend
 
@@ -73,16 +46,7 @@ services:
     depends_on:
       - mongo
     environment:
-      MONGODB_URI: mongodb://mongo:27017/historial_db
-    networks:
-      - backend
-
-  # MongoDB
-  mongo:
-    image: mongo:6.0
-    container_name: mongo
-    ports:
-      - "27017:27017"
+      MONGODB_URI: mongodb://172.31.95.13:27017/historial_db
     networks:
       - backend
 
