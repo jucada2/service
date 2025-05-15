@@ -1,0 +1,147 @@
+@import '../../styles/variables';
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: $z-index-navbar;
+  transition: $transition-base;
+  background: transparent;
+
+  &.scrolled {
+    background-color: $netflix-black;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+}
+
+.navbar-logo {
+  img {
+    height: 30px;
+    width: auto;
+  }
+}
+
+.navbar-links {
+  display: flex;
+  gap: $spacing-md;
+
+  a {
+    color: $netflix-white;
+    font-size: $font-size-small;
+    font-weight: 500;
+    transition: $transition-base;
+
+    &:hover {
+      color: $netflix-light-gray;
+    }
+  }
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.search-container {
+  input {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 4px;
+    padding: $spacing-xs $spacing-sm;
+    color: $netflix-white;
+    font-size: $font-size-small;
+    width: 200px;
+    transition: $transition-base;
+
+    &:focus {
+      background-color: rgba(255, 255, 255, 0.2);
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $netflix-light-gray;
+    }
+  }
+}
+
+.profile-dropdown {
+  position: relative;
+}
+
+.profile-button {
+  img {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 1px solid $netflix-light-gray;
+  border-radius: 4px;
+  padding: $spacing-sm;
+  min-width: 200px;
+  margin-top: $spacing-sm;
+
+  a, button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: $spacing-sm;
+    color: $netflix-white;
+    font-size: $font-size-small;
+    transition: $transition-base;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  button {
+    border-top: 1px solid $netflix-light-gray;
+    margin-top: $spacing-xs;
+    padding-top: $spacing-sm;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .navbar-links {
+    display: none;
+  }
+
+  .search-container {
+    input {
+      width: 150px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .search-container {
+    display: none;
+  }
+} 

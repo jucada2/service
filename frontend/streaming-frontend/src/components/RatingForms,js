@@ -1,0 +1,42 @@
+// import React, { useState } from "react";
+// import axios from "axios";
+
+// function RatingForm({ videoId }) {
+//   const [rating, setRating] = useState("");
+//   const [message, setMessage] = useState("");
+
+//   const userId = localStorage.getItem("user_id");
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       await axios.post("http://localhost:8000/rating", {
+//         user_id: userId,
+//         video_id: videoId,
+//         calificacion: parseInt(rating)
+//       });
+//       setMessage("¡Gracias por tu calificación!");
+//     } catch (err) {
+//       console.error("Error al calificar:", err);
+//       setMessage("Ocurrió un error.");
+//     }
+//   };
+
+//   return (
+//     <form onSubmit={handleSubmit}>
+//       <label>Calificación (1 a 5):</label><br />
+//       <input
+//         type="number"
+//         value={rating}
+//         onChange={(e) => setRating(e.target.value)}
+//         min="1"
+//         max="5"
+//         required
+//       />
+//       <button type="submit">Calificar</button>
+//       {message && <p>{message}</p>}
+//     </form>
+//   );
+// }
+
+// export default RatingForm;

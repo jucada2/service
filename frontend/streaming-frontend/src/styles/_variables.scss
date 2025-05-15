@@ -1,0 +1,36 @@
+// Colors
+$netflix-red: #E50914;
+$netflix-black: #141414;
+$netflix-dark-gray: #222222;
+$netflix-light-gray: #808080;
+$netflix-white: #FFFFFF;
+
+// Typography
+$font-family-base: 'Helvetica Neue', Arial, sans-serif;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-large: 20px;
+$font-size-xlarge: 24px;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// Z-index layers
+$z-index-navbar: 1000;
+$z-index-modal: 2000;
+$z-index-dropdown: 1500;
+
+// Transitions
+$transition-base: all 0.3s ease;
+$transition-fast: all 0.15s ease;
+$transition-slow: all 0.5s ease; 

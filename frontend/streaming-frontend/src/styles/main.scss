@@ -1,0 +1,89 @@
+@import 'variables';
+
+// Global styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  background-color: $netflix-black;
+  color: $netflix-white;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 60px; // Height of navbar
+}
+
+// Reset and base styles
+a {
+  color: $netflix-white;
+  text-decoration: none;
+  transition: $transition-base;
+
+  &:hover {
+    color: $netflix-red;
+  }
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: $font-family-base;
+}
+
+// Container
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+}
+
+// Utility classes
+.text-red {
+  color: $netflix-red;
+}
+
+.text-gray {
+  color: $netflix-light-gray;
+}
+
+.bg-dark {
+  background-color: $netflix-dark-gray;
+}
+
+// Grid system
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -$spacing-md;
+}
+
+.col {
+  padding: 0 $spacing-md;
+  flex: 1;
+}
+
+// Responsive utilities
+@media (max-width: $breakpoint-md) {
+  .hide-md {
+    display: none;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .hide-sm {
+    display: none;
+  }
+} 

@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # Microservicio 1: user_microservice
+  user-service:
+    build:
+      context: ./backend/user_microservice
+      dockerfile: Dockerfile
+    container_name: user_microservice-container
+    ports:
+      - "8001:8000"  
+    depends_on:
+      - mysql 
+    environment:
+      DB_HOST: mysql  
+      DB_PORT: 3306
+      DB_NAME: user_db
+      DB_USER: user
+      DB_PASSWORD: userpassword
+    networks:
+      - backend
+
+  # MySQL
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword 
+      MYSQL_DATABASE: user_db  
+      MYSQL_USER: user 
+      MYSQL_PASSWORD: userpassword  
+    ports:
+      - "3333:3306" 
+    networks:
+      - backend
+    volumes:
+      - ./backend/user_microservice/schema.sql:/docker-entrypoint-initdb.d/schema.sql  
+
+  content-service:
+    build:
+      context: ./backend/content_microservice
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/video-db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgresql
+    networks:
+      - backend
+
+  # Postgres
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgresql
+      POSTGRES_DB: video-db
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+  # Historial Microservice (Node + Mongo)
+  historial-service:
+    build:
+      context: ./backend/historial-service
+      dockerfile: Dockerfile
+    container_name: historial-service-container
+    ports:
+      - "3001:3000"
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/historial_db
+    networks:
+      - backend
+
+  # MongoDB
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+
+  orchestrator:
+    build: ./backend/orchestrator
+    container_name: orchestrator-service
+    ports:
+      - "9000:9000"
+    environment:
+      USER_SERVICE_URL: "http://user-service:8000/user"
+      CONTENT_SERVICE_URL: "http://content-service:8080/video"
+      HISTORY_SERVICE_URL: "http://historial-service:3000/historial"
+    networks:
+      - backend
+
+
+networks:
+  backend:
+    driver: bridge

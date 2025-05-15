@@ -1,0 +1,11 @@
+@import 'variables';
+
+.app {
+  min-height: 100vh;
+  background-color: $netflix-black;
+}
+
+.main-content {
+  padding-top: 60px; // Height of navbar
+  min-height: calc(100vh - 60px);
+} 
