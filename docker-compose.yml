@@ -1,3 +1,4 @@
+version: '3.8'
 
 services:
   # Microservicio 1: user_microservice
@@ -7,34 +8,31 @@ services:
       dockerfile: Dockerfile
     container_name: user_microservice-container
     ports:
-      - "8001:8000"  
-    depends_on:
-      - mysql 
+      - "8001:8000"
     environment:
-      DB_HOST: 172.31.95.13  
-      DB_PORT: 8005
+      DB_HOST: 172.31.95.13   # IP de la MV de BD
+      DB_PORT: 8005           # Puerto expuesto de MySQL
       DB_NAME: user_db
       DB_USER: user
       DB_PASSWORD: userpassword
     networks:
       - backend
 
+  # Microservicio 2: content-service
   content-service:
     build:
       context: ./backend/content_microservice
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://172.31.95.13:5432/video-db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://172.31.95.13:8006/video-db  # Cambiado puerto
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgresql
     networks:
       - backend
 
-  # Historial Microservice (Node + Mongo)
+  # Microservicio 3: historial-service (Node + MongoDB)
   historial-service:
     build:
       context: ./backend/historial-service
@@ -42,13 +40,12 @@ services:
     container_name: historial-service-container
     ports:
       - "3001:3000"
-    depends_on:
-      - mongo
     environment:
       MONGODB_URI: mongodb://172.31.95.13:27017/historial_db
     networks:
       - backend
 
+  # Microservicio 4: orchestrator
   orchestrator:
     build: ./backend/orchestrator
     container_name: orchestrator-service
@@ -60,7 +57,6 @@ services:
       HISTORY_SERVICE_URL: "http://historial-service:3000/historial"
     networks:
       - backend
-
 
 networks:
   backend:
