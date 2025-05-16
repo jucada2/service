@@ -15,6 +15,6 @@ services:
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/video-db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://172.31.95.13:5432/video-db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgresql

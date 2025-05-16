@@ -4,7 +4,7 @@ from typing import List, Optional
 import mysql.connector
 
 # Configuración de la base de datos
-host_name = "mysql"  
+host_name = "172.31.95.13"  
 port_number = 3306
 user_name = "user"
 password_db = "userpassword"
